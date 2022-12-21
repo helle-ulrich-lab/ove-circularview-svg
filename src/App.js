@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Editor, updateEditor } from "open-vector-editor";
+import store from "./store";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = React.useState(0);
-
-  const increment = () => {
-    setCount(count + 1);
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
+  React.useEffect(() => {
+    updateEditor(store, "DemoEditor", {
+      sequenceData: {
+        circular: true,
+        sequence:
+          "gtagagagagagtgagcccgacccccgtagagagagagtgagcccgacccccgtagagagagagtgagcccgacccccgtagagagagagtgagcccgaccccc",
+        features: [
+          {
+            id: "2oi452",
+            name: "I'm a feature :)",
+            start: 10,
+            end: 20
+          }
+        ]
+      }
+    });
+  });
+  const editorProps = {
+    editorName: "DemoEditor",
+    isFullscreen: true,
+    showMenuBar: true
   };
 
   return (
-    <>
-      <p>{count}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-    </>
+    <div>
+      <Editor {...editorProps} />
+    </div>
   );
 }
 
