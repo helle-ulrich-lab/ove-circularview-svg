@@ -157,7 +157,7 @@ function Labels({
   //     labelAndSublabels: [originalLabel].concat(originalLabel.labelAndSublabels)
   //   };
   // });
-  window.isLabelGroupOpen = false;
+  // window.isLabelGroupOpen = false;
   return {
     component: (
       <g
@@ -266,7 +266,7 @@ const DrawLabelGroup = function ({
 
   if ((multipleLabels || groupLabelXStart !== undefined) && hovered) {
     //HOVERED: DRAW MULTIPLE LABELS IN A RECTANGLE
-    window.isLabelGroupOpen = true;
+    // window.isLabelGroupOpen = true;
     let hoveredLabel;
     if (groupLabelXStart !== undefined) {
       labelXStart = groupLabelXStart;
