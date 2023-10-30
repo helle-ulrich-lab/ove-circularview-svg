@@ -12,7 +12,7 @@ const app = express();
 
 app.get("/", (req, res) => {
 
-  fs.readFile(path.resolve("./public/index.html"), "utf8", (err, data) => {
+  fs.readFile(path.resolve("./public/plasmidMap.svg"), "utf8", (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).send("An error occurred");
@@ -20,10 +20,15 @@ app.get("/", (req, res) => {
 
   plasmidFilePath = req.query.plasmidFilePath;
 
+  circularViewHtml = ReactDOMServer.renderToString(<App plasmidFilePath={plasmidFilePath} />);
+  var startPos = circularViewHtml.indexOf("<svg ");
+  var endPos = circularViewHtml.indexOf("</svg>") + "<svg>".length + 1;
+  var svgElement = circularViewHtml.substring(startPos, endPos).trim();
+
     return res.send(
       data.replace(
-        '<div id="root"></div>',
-        `<div id="root">${ReactDOMServer.renderToString(<App plasmidFilePath={plasmidFilePath} />)}</div>`
+        '<svg></svg>',
+        svgElement
       )
     );
   });
