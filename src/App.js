@@ -1,4 +1,6 @@
 import React from "react";
+import { tidyUpSequenceData } from "ve-sequence-utils";
+
 import "./App.css";
 import CircularView from "./CircularView";
 
@@ -39,7 +41,7 @@ function App() {
             fivePrimeThreePrimeHints: true,
             axisNumbers: true,
           },
-          sequenceData: {
+          sequenceData: tidyUpSequenceData({
             circular: true,
             name: "Some Test Seq",
             sequence:
@@ -48,18 +50,19 @@ function App() {
               {
                 id: "2oi452",
                 name: "I'm a feature :)",
+                type: "CDS",
                 start: 10,
                 end: 20,
               },
               {
-                id: "2oi452",
-                type: 'misc_feature',
+                id: "2oi452123",
+                type: "misc_feature",
                 name: "wahoo",
                 start: 15,
                 end: 90,
               },
             ],
-          },
+          }),
         }}
       />
     </div>
