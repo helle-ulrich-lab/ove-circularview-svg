@@ -22,13 +22,13 @@ app.get("/", (req, res) => {
 
   // Extract the SVG element from the rendered circular view
   circularViewHtml = ReactDOMServer.renderToString(<App plasmidFilePath={plasmidFilePath} />);
-  var startPos = circularViewHtml.indexOf("<svg ");
+  var startPos = circularViewHtml.indexOf("<svg ") + "<svg ".length;
   var endPos = circularViewHtml.indexOf("</svg>") + "<svg>".length + 1;
-  var svgElement = circularViewHtml.substring(startPos, endPos).trim();
+  var svgElement = "<svg id='plasmidMap' " + circularViewHtml.substring(startPos, endPos).trim();
 
     return res.send(
       data.replace(
-        '<svg></svg>',
+        "<svg id='plasmidMap'></svg>",
         svgElement
       )
     );
