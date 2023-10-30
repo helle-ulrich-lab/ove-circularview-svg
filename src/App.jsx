@@ -1,8 +1,8 @@
 import * as React from "react";
 import { genbankToJson } from '@teselagen/bio-parsers';
 import CircularView from "./CircularView/index.js";
-
-import myData from "./pHU6066.txt"
+import fs from "fs";
+import path from "path";
 
 const editorProps = {
   editorName: "DemoEditor",
@@ -10,7 +10,7 @@ const editorProps = {
   showMenuBar: true,
 };
 
-export default function App() {
+export default function App({ plasmidFilePath }) {
   return (
     <div>
       <CircularView
@@ -40,7 +40,7 @@ export default function App() {
             fivePrimeThreePrimeHints: true,
             axisNumbers: true,
           },
-          sequenceData: genbankToJson(myData, {})[0]['parsedSequence'],
+          sequenceData: genbankToJson(fs.readFileSync(path.resolve(plasmidFilePath)).toString(), {})[0]['parsedSequence'],
         }}
       />
     </div>
