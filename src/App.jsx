@@ -1,21 +1,32 @@
 import * as React from "react";
 import { genbankToJson } from '@teselagen/bio-parsers';
+import { tidyUpSequenceData } from "ve-sequence-utils";
 import CircularView from "./CircularView/index.js";
 import fs from "fs";
 import path from "path";
+import "./svg.css";
 
-const editorProps = {
-  editorName: "DemoEditor",
-  isFullscreen: true,
-  showMenuBar: true,
-};
+export default function App({ params }) {
 
-export default function App({ plasmidFilePath }) {
+  // Get plasmid data
+  let plasmidData = fs.readFileSync(path.resolve(params.plasmidFilePath)).toString();
+  plasmidData = genbankToJson(plasmidData, {})[0]['parsedSequence'];
+  plasmidData = tidyUpSequenceData(plasmidData);
+
+  // Set plasmid name
+  plasmidData.name = params.plasmidTitle;
+
+  // Remove features that do not need to be shown, ever!
+  const plasmidLength = plasmidData.size;
+  const featNameExclude = ["synthetic dna construct", "recombinant plasmid", "source"];
+  plasmidData.features = plasmidData.features.filter(feat =>
+      !(featNameExclude.includes(feat.name.toLowerCase()) && plasmidLength === feat.end - feat.start + 1));
+
   return (
     <div>
       <CircularView
         {...{
-          ...editorProps,
+          ...{editorName: "DemoEditor",},
           annotationVisibility: {
             featureTypesToHide: {},
             featureIndividualToHide: {},
@@ -40,7 +51,7 @@ export default function App({ plasmidFilePath }) {
             fivePrimeThreePrimeHints: true,
             axisNumbers: true,
           },
-          sequenceData: genbankToJson(fs.readFileSync(path.resolve(plasmidFilePath)).toString(), {})[0]['parsedSequence'],
+          sequenceData: plasmidData,
         }}
       />
     </div>
