@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
     
     // Include css directly into the svg element
     const css = '<style type="text/css">' + fs.readFileSync(path.resolve("build/server.css")).toString() + '</style>';
-    svgElement = svgElement.substring(0, svgElement.length - 5) + css + svgElement.substring(svgElement.length - 5);
+    svgElement = svgElement.substring(0, svgElement.length - 6) + css.replace(/\s+/g, '') + svgElement.substring(svgElement.length - 6);
 
     return res.send(
       data.replace(
