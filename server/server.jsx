@@ -17,14 +17,15 @@ app.get("/", (req, res) => {
       return res.status(500).send("An error occurred");
     }
 
-  // Get path to the gbk file from the list of GET parameters 
-  plasmidFilePath = req.query.plasmidFilePath;
-
-  // Extract the SVG element from the rendered circular view
-  circularViewHtml = ReactDOMServer.renderToString(<App plasmidFilePath={plasmidFilePath} />);
-  var startPos = circularViewHtml.indexOf("<svg ") + "<svg ".length;
-  var endPos = circularViewHtml.indexOf("</svg>") + "<svg>".length + 1;
-  var svgElement = "<svg id='plasmidMap' " + circularViewHtml.substring(startPos, endPos).trim();
+    // Extract the SVG element from the rendered circular view
+    circularViewHtml = ReactDOMServer.renderToString(<App params={req.query} />);
+    const svgStartPos = circularViewHtml.indexOf("<svg ") + "<svg ".length;
+    const svgEndPos = circularViewHtml.indexOf("</svg>") + "<svg>".length + 1;
+    let svgElement = "<svg id='plasmidMap' " + circularViewHtml.substring(svgStartPos, svgEndPos).trim();
+    
+    // Include css directly into the svg element
+    const css = '<style type="text/css">' + fs.readFileSync(path.resolve("build/server.css")).toString() + '</style>';
+    svgElement = svgElement.substring(0, svgElement.length - 5) + css + svgElement.substring(svgElement.length - 5);
 
     return res.send(
       data.replace(
