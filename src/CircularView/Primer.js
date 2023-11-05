@@ -1,4 +1,5 @@
 import React from "react";
+import { getStripedPattern } from "../utils/editorUtils";
 import drawDirectedPiePiece from "./drawDirectedPiePiece";
 import { getInternalLabel } from "./getInternalLabel";
 
@@ -11,7 +12,7 @@ export default function CircularPrimer(props) {
     totalAngle,
     id,
     labelNeedsFlip,
-    ellipsizedName,
+    ellipsizedName
   } = props;
   const [path, textPath] = drawDirectedPiePiece({
     radius,
@@ -21,7 +22,7 @@ export default function CircularPrimer(props) {
     tailThickness: 1, //feature specific
     returnTextPath: true,
     hasLabel: ellipsizedName,
-    labelNeedsFlip,
+    labelNeedsFlip
   });
   return (
     <React.Fragment>
@@ -36,28 +37,5 @@ export default function CircularPrimer(props) {
       />
       {getInternalLabel({ ...props, colorToUse: color, textPath })}
     </React.Fragment>
-  );
-}
-
-function getStripedPattern({ color }) {
-  return (
-    <pattern
-      id="diagonalHatch"
-      patternUnits="userSpaceOnUse"
-      width="4"
-      height="4"
-    >
-      <path
-        d="M-1,1 l2,-2
-           M0,4 l4,-4
-           M3,5 l2,-2"
-        style={{
-          stroke: color,
-          strokeWidth: 2,
-          fill: "blue",
-          opacity: 0.4,
-        }}
-      />
-    </pattern>
   );
 }

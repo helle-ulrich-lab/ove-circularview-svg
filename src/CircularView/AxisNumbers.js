@@ -1,12 +1,13 @@
 import React from "react";
 import shouldFlipText from "./shouldFlipText";
+import { divideBy3 } from "../utils/proteinUtils";
 
 export function AxisNumbers({
   rotationRadians,
   textHeightOffset = -5,
   annotation,
   isProtein,
-  hideNumbers,
+  hideNumbers
 }) {
   const shouldFlip = shouldFlipText(annotation.startAngle + rotationRadians);
   return (
@@ -23,7 +24,7 @@ export function AxisNumbers({
           style={{
             textAnchor: "middle",
             dominantBaseline: "central",
-            fontSize: "small",
+            fontSize: "small"
           }}
         >
           {divideBy3(annotation.tickPosition + 1, isProtein) + ""}
@@ -31,8 +32,4 @@ export function AxisNumbers({
       )}
     </g>
   );
-}
-
-export function divideBy3(num, shouldDivideBy3) {
-  return shouldDivideBy3 ? Math.floor(num / 3) : num;
 }
