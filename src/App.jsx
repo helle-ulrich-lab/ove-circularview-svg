@@ -4,7 +4,6 @@ import { tidyUpSequenceData } from "ve-sequence-utils";
 import CircularView from "./CircularView/index.js";
 import fs from "fs";
 import path from "path";
-import "./svg.css";
 
 export default function App({ params }) {
 
