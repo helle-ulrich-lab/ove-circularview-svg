@@ -332,7 +332,7 @@ function DrawAnnotationInner({
   rotationRadians,
 }) {
   const sharedProps = {
-    style: noTitle ? undefined : { cursor: "pointer" },
+    // style: noTitle ? undefined : { cursor: "pointer" },
     className: `${className} ${classNames}`,
     onContextMenu: onContextMenu,
     onClick: onClick,
