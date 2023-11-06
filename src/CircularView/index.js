@@ -845,8 +845,8 @@ export function CircularView(props) {
                   },${svgWidth / smallZoom},${svgHeight / smallZoom}`
                 : `-${radius} -${radius} ${radius * 2} ${radius * 2}`
             }
-            width={svgWidth}
-            height={svgHeight}
+            width="100%"
+            height="100%"
           >
             <g>
               {/* {isZoomedIn && (
