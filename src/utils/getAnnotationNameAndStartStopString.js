@@ -48,14 +48,6 @@ export default function getAnnotationNameAndStartStopString(
     readOnly
       ? ""
       : annotationTypePlural === "cutsites"
-      ? `
-
- click --> top cut position
- alt/option+click --> bottom cut position
- cmd/ctrl+click --> recognition range`
-      : `
-
-alt/option+click --> jump row view to start/end
-double click --> edit`
-  }`;
+      ? ''
+      : ''}`;
 }
