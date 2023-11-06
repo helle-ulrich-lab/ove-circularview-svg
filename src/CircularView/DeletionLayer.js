@@ -9,7 +9,7 @@ export default function DeletionLayer({
   totalAngle,
   ...rest
 }) {
-  let path = drawDirectedPiePiece({
+  const path = drawDirectedPiePiece({
     radius,
     annotationHeight,
     totalAngle,

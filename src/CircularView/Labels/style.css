@@ -12,6 +12,11 @@
 
 .veEditor .veAnnotationHovered:not(.topLevelLabelGroup) {
   font-weight: bold;
+}
+.veEditor
+  .veAnnotationHovered:not(.topLevelLabelGroup):not(
+    .veCircularViewInternalLabelText
+  ) {
   text-decoration: underline;
 }
 
@@ -48,4 +53,3 @@ path.partWithSelectedTag {
 /* .veLabelLine {
   opacity: 0.1;
 } */
-/*# sourceMappingURL= style.css.map */

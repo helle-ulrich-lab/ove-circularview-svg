@@ -9,23 +9,23 @@ export function getInternalLabel({
   angleAdjust,
   isPart,
   colorToUse,
-  textPath
+  textPath,
+  locationNumber
 }) {
   if (!ellipsizedName) return null;
-  const pathId = `${annotationType}${id}`;
+  const pathId = `${annotationType}${id}${locationNumber ?? ""}`;
   return (
     <>
       <path id={pathId} fill="none" d={textPath.print()}></path>
       <text
-        className="veLabelText ve-monospace-font"
-        // transform={revTransform}
+        className="veLabelText veCircularViewInternalLabelText ve-monospace-font"
         transform={
           (revTransform || "") + (angleAdjust ? ` rotate(${angleAdjust})` : "")
         }
         fill={
           isPart ? "#ac68cc" : Color(colorToUse).isDark() ? "white" : "black"
         }
-        dy={-2}
+        dy={-3}
       >
         <textPath
           textAnchor="middle"

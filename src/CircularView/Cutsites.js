@@ -3,6 +3,8 @@ import getRangeAngles from "./getRangeAnglesSpecial";
 import PositionAnnotationOnCircle from "./PositionAnnotationOnCircle";
 import React from "react";
 import each from "lodash/each";
+import withHover from "../helperComponents/withHover";
+import pureNoFunc from "../utils/pureNoFunc";
 
 function Cutsites({
   radius,
@@ -15,7 +17,7 @@ function Cutsites({
   cutsites,
   cutsiteWidth = 1,
   annotationHeight = 15,
-  sequenceLength,
+  sequenceLength
 }) {
   radius += annotationHeight;
   const svgGroup = [];
@@ -41,18 +43,18 @@ function Cutsites({
         color: annotation.restrictionEnzyme.color,
         className: " veCutsiteLabel",
         id: annotation.id,
-        onClick: (event) => {
+        onClick: event => {
           cutsiteClicked({ event, annotation });
           event.stopPropagation();
         },
-        onDoubleClick: (event) => {
+        onDoubleClick: event => {
           cutsiteDoubleClicked({ event, annotation });
           event.stopPropagation();
         },
-        onContextMenu: (event) => {
+        onContextMenu: event => {
           cutsiteRightClicked({ event, annotation });
           event.stopPropagation();
-        },
+        }
       };
     }
     svgGroup.push(
@@ -65,7 +67,7 @@ function Cutsites({
           startAngle,
           radius,
           cutsiteWidth,
-          annotationHeight,
+          annotationHeight
         }}
       />
     );
@@ -77,33 +79,35 @@ function Cutsites({
       <g key="cutsites" className="cutsites">
         {svgGroup}
       </g>
-    ),
+    )
   };
 }
 
 export default Cutsites;
 
-const DrawCutsite = function ({
-  className,
-  startAngle,
-  radius,
-  cutsiteWidth,
-  annotationHeight,
-  onMouseLeave,
-  onMouseOver,
-}) {
-  const { transform } = PositionAnnotationOnCircle({
-    sAngle: startAngle,
-    eAngle: startAngle,
-    height: radius,
-  });
-  return (
-    <rect
-      {...{ onMouseLeave, onMouseOver }}
-      className={className}
-      transform={transform}
-      width={cutsiteWidth}
-      height={annotationHeight}
-    />
-  );
-};
+const DrawCutsite = pureNoFunc(
+  withHover(function ({
+    className,
+    startAngle,
+    radius,
+    cutsiteWidth,
+    annotationHeight,
+    onMouseLeave,
+    onMouseOver
+  }) {
+    const { transform } = PositionAnnotationOnCircle({
+      sAngle: startAngle,
+      eAngle: startAngle,
+      height: radius
+    });
+    return (
+      <rect
+        {...{ onMouseLeave, onMouseOver }}
+        className={className}
+        transform={transform}
+        width={cutsiteWidth}
+        height={annotationHeight}
+      />
+    );
+  })
+);

@@ -1,7 +1,10 @@
 import isNumber from "lodash/isNumber";
-import { getRangeAngles } from "ve-range-utils";
+import { getRangeAngles } from "@teselagen/range-utils";
 import PositionAnnotationOnCircle from "./PositionAnnotationOnCircle";
 import React from "react";
+import draggableClassnames from "../constants/draggableClassnames";
+import pureNoFunc from "../utils/pureNoFunc";
+import { getSelectionMessage } from "../utils/editorUtils";
 
 function Caret({
   caretPosition,
@@ -12,7 +15,7 @@ function Caret({
   innerRadius,
   outerRadius,
   isProtein,
-  selectionMessage,
+  selectionMessage
 }) {
   const { startAngle, endAngle } = getRangeAngles(
     { start: caretPosition, end: caretPosition },
@@ -24,15 +27,18 @@ function Caret({
   const { transform } = PositionAnnotationOnCircle({
     sAngle: startAngle,
     eAngle: endAngle,
-    height: 0,
+    height: 0
   });
   return (
     <g
       onClick={onClick}
       transform={transform}
-      className={className + " veCaret "}
+      className={className + " veCaret " + draggableClassnames.caret}
     >
-      
+      <title>
+        {selectionMessage ||
+          getSelectionMessage({ caretPosition, isProtein, sequenceLength })}
+      </title>
       <line
         strokeWidth="1.5px"
         x1={0}
@@ -54,4 +60,4 @@ function Caret({
   );
 }
 
-export default (Caret);
+export default pureNoFunc(Caret);
