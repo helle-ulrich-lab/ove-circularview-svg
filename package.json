@@ -1,7 +1,7 @@
 {
-  "name": "node-http-server",
+  "name": "ove-circularview-svg",
   "version": "1.0.0",
-  "description": "Node.js example server starter project",
+  "description": "Server-side-rendering for CircularView from Teselagen's Open Vector Editor",
   "scripts": {
     "build:client": "esbuild src/index.js --bundle --outfile=dist/bundle.js --loader:.js=jsx --platform=node --external:@teselagen/ui --external:@blueprintjs/core --external:popper.js",
     "build:server": "esbuild server/server.jsx --bundle --outfile=build/server.js --platform=node --loader:.js=jsx --external:@teselagen/ui --external:@blueprintjs/core --external:popper.js",
