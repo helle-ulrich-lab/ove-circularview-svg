@@ -28,7 +28,7 @@ function Labels({
   labelSize = 8,
   fontHeightMultiplier = 2.4,
   circularViewWidthVsHeightRatio, //width of the circular view
-  condenseOverflowingXLabels = true, //set to true to make labels tha
+  condenseOverflowingXLabels = false, //set to true to make labels tha
 }) {
   if (!labels.length) {
     return {
@@ -369,6 +369,7 @@ const DrawLabelGroup = function ({
           fontSize: fontWidth * fontWidthToFontSize,
           fontStyle: label.fontStyle,
           fill: label.color || "black",
+          fontFamily: "Lucida Console,Monaco,monospace",
           // stroke: label.color ? label.color : "black"
         }}
       >
